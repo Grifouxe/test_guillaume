@@ -3,7 +3,7 @@ import 'navigation_bloc.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final NavigationTab selectedTab;
-  final Function(NavigationTab) onTabSelected;
+  final ValueChanged<NavigationTab> onTabSelected;
 
   const CustomBottomNavigationBar({
     Key? key,
@@ -16,23 +16,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: selectedTab.index,
       onTap: (index) {
-        NavigationTab selectedTab;
-        switch (index) {
-          case 0:
-            selectedTab = NavigationTab.training;
-            break;
-          case 1:
-            selectedTab = NavigationTab.food;
-            break;
-          case 2:
-            selectedTab = NavigationTab.home;
-            break;
-          case 3:
-            selectedTab = NavigationTab.ranking;
-            break;
-          default:
-            selectedTab = NavigationTab.home;
-        }
+        NavigationTab selectedTab = NavigationTab.values[index];
         onTabSelected(selectedTab);
       },
       items: const [
@@ -41,7 +25,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Training',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.apple),
+          icon: Icon(Icons.fastfood),
           label: 'Food',
         ),
         BottomNavigationBarItem(
@@ -49,10 +33,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.grade_sharp),
+          icon: Icon(Icons.star),
           label: 'Ranking',
         ),
       ],
     );
   }
 }
+
+
+

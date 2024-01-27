@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../food_page.dart';
 import '../home_page.dart';
 import '../login_page/sign_in/login_page.dart';
+import '../ranking_page.dart';
+import '../training_page.dart';
 import 'authentication_bloc.dart';
 import 'authentication_repository.dart';
 import 'authentication_state.dart';
@@ -51,7 +54,14 @@ List<Page<dynamic>> onGenerateAppViewPages(
     ) {
   switch (state) {
     case AppStatus.authenticated:
-      return [HomePage.page()];
+
+      return [
+        RankingPage.page(),
+        HomePage.page(),
+      FoodPage.page(), // Ajoutez la page FoodPage
+  TrainingPage.page(), // Ajoutez la page TrainingPage
+   // Ajoutez la page RankingPage
+  ];
     case AppStatus.unauthenticated:
       return [LoginPage.page()];
   }

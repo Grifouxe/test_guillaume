@@ -7,6 +7,8 @@ import 'navigation_bloc.dart';
 class RankingPage extends StatelessWidget {
   const RankingPage({super.key});
 
+  static Page<void> page() => const MaterialPage<void>(child: RankingPage());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,26 +19,12 @@ class RankingPage extends StatelessWidget {
         child: Text('Home Page Content'),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
-        selectedTab: context.select((NavigationBloc bloc) => bloc.state),
-        onTabSelected: (tab) {
-          context.read<NavigationBloc>().add(TabSelectedEvent(tab));
-          // Naviguez vers la nouvelle page ici
-          switch (tab) {
-            case NavigationTab.training:
-              Navigator.pushNamed(context, '/training_page');
-              break;
-            case NavigationTab.food:
-              Navigator.pushNamed(context, '/food_page');
-              break;
-            case NavigationTab.home:
-              Navigator.pushNamed(context, '/home_page');
-              break;
-            case NavigationTab.ranking:
-              Navigator.pushNamed(context, '/ranking_page');
-              break;
-          }
-        },
-      ),
+    selectedTab: context.select((NavigationBloc bloc) => bloc.state),
+    onTabSelected: (tab) {
+    context.read<NavigationBloc>().add(TabSelectedEvent(tab));
+    },
+    ),
+
     );
   }
 }

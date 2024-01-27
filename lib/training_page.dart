@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'bottomnavigationbar.dart';
 import 'navigation_bloc.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class CardWidget {
   final String exerciseName;
@@ -15,6 +14,10 @@ class CardWidget {
 }
 
 class TrainingPage extends StatelessWidget {
+
+
+  static Page<void> page() => MaterialPage<void>(child: TrainingPage());
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -127,25 +130,15 @@ class TrainingPageContent extends StatelessWidget {
           return Container(); // Peut être un état par défaut ou vide
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedTab: context.select((NavigationBloc bloc) => bloc.state),
-        onTabSelected: (tab) {
-          context.read<NavigationBloc>().add(TabSelectedEvent(tab));
-          // Naviguez vers la nouvelle page ici
-          switch (tab) {
-            case NavigationTab.training:
-              Navigator.pushNamed(context, '/training_page');
-              break;
-            case NavigationTab.food:
-              Navigator.pushNamed(context, '/food_page');
-              break;
-            case NavigationTab.home:
-              Navigator.pushNamed(context, '/home_page');
-              break;
-            case NavigationTab.ranking:
-              Navigator.pushNamed(context, '/ranking_page');
-              break;
-          }
+      bottomNavigationBar: BlocBuilder<NavigationBloc, NavigationTab>(
+        builder: (context, state) {
+          return CustomBottomNavigationBar(
+            selectedTab: state,
+            onTabSelected: (tab) {
+              context.read<NavigationBloc>().add(TabSelectedEvent(tab));
+
+            },
+          );
         },
       ),
     );

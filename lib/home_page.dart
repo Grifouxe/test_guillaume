@@ -1,7 +1,9 @@
+import 'package:bloc_application/bottomnavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication/authentication_bloc.dart';
 import 'authentication/authentication_event.dart';
+import 'navigation_bloc.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -14,6 +16,7 @@ class HomePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
+      backgroundColor: Colors.green,
       appBar: AppBar(
         title: const Text('Home'),
         actions: <Widget>[
@@ -26,7 +29,12 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Align(
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.blue
+        ),
+
+        child :Align(
         alignment: const Alignment(0, -1 / 3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -38,8 +46,19 @@ class HomePage extends StatelessWidget {
             Text(user.name ?? '', style: textTheme.headlineSmall),
           ],
         ),
+      ),),
+      bottomNavigationBar : BlocBuilder<NavigationBloc, NavigationTab>(
+        builder: (context, state) {
+          return CustomBottomNavigationBar(
+            selectedTab: state,
+            onTabSelected: (tab) {
+              context.read<NavigationBloc>().add(TabSelectedEvent(tab));
+
+            },
+          );
+        },
       ),
-    );
+      );
   }
 }
 
@@ -62,3 +81,5 @@ class Avatar extends StatelessWidget {
     );
   }
 }
+
+
