@@ -12,6 +12,10 @@ import 'firebase_options.dart';
 import 'home_page.dart';
 import 'login_page/sign_in/login_page.dart';
 
+import 'package:flutter/material.dart';
+import 'package:bloc_application/form.dart'; // Importez votre fichier de questionnaire
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
@@ -26,6 +30,7 @@ Future<void> main() async {
 
 
 class App extends StatelessWidget {
+
   const App({
     required AuthenticationRepository authenticationRepository,
     super.key,
@@ -35,6 +40,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*return const MaterialApp(
+      title: 'Votre Application',
+      home: Questionnaire(), // Affichez le questionnaire comme page d'accueil
+    );*/
+
     return RepositoryProvider.value(
       value: _authenticationRepository,
       child: BlocProvider(
